@@ -12,14 +12,15 @@ class JointAngleReader(Node):
         super().__init__('joint_angle_reader')
         self.joint_state_publisher = self.create_publisher(JointState, 'joint_states', 10)
         self.serial_port = serial.Serial('/dev/ttyS0', 115200, timeout=1)
-        self.timer = self.create_timer(1.0, self.query_and_publish_joint_angles)
+        self.timer = self.create_timer(0.2, self.query_and_publish_joint_angles)
+        self.last_joint_angles = None
 
     def query_and_publish_joint_angles(self):
         # Send the 'j' command to query joint angles
-        #self.serial_port.write(b'j\n')
+        self.serial_port.write(b'j\n')
 
         # Wait briefly for the Bittle to respond
-        time.sleep(0.1)
+        time.sleep(0.2)
 
         if self.serial_port.in_waiting:
             # Read and ignore the first line (joint indices)
@@ -30,7 +31,11 @@ class JointAngleReader(Node):
             joint_angles = self.extract_joint_angles(angle_line)
 
             if joint_angles is not None:
+                self.last_joint_angles = joint_angles
                 self.publish_joint_angles(joint_angles)
+        
+        if self.last_joint_angles is not None:
+            self.publish_joint_angles(self.last_joint_angles)
 
     def extract_joint_angles(self, angle_line):
         # Use regular expressions to find all numbers in the string
