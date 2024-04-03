@@ -56,13 +56,14 @@ class JointAngleReader(Node):
         rad_angles = [math.radians(angle) for angle in joint_angles]
 
         # Debugging print
-        print(f"Publishing Joint Angles: {rad_angles}")
+        #print(f"Publishing Joint Angles: {rad_angles}")
 
         msg = JointState()
         msg.header.stamp = self.get_clock().now().to_msg()
         msg.name = ['neck_joint', 'shlfs_joint', 'shrfs_joint', 'shrrs_joint', 'shlrs_joint', 'shlft_joint', 'shrft_joint', 'shrrt_joint', 'shlrt_joint']  # Adjust as necessary
         selected_angles = [rad_angles[0]] + rad_angles[-8:]
         msg.position = selected_angles
+        self.get_logger().info(f"Publishing Joint Angles: {selected_angles}")
         self.joint_state_publisher.publish(msg)
         self.get_logger().info('Publishing JointState in radians')
 
