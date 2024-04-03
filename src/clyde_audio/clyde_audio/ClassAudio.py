@@ -9,7 +9,7 @@ sr.__version__
 '3.8.1'
 
 
-class Audio:
+class Audio_Detector:
     def __init__(self, access_key, keyword_paths, audio_device_index=-1, output_path=None):
         self.access_key = access_key
         self.keyword_paths = keyword_paths
@@ -51,7 +51,7 @@ class Audio:
 
     def PvRecorder_init(self):
         self.recorder = PvRecorder(
-            frame_length=self.porcupine.frame_length,
+            frame_length=self.porcupine.frame_length,  # 512 default
             device_index=self.audio_device_index)
         self.recorder.start()
 
@@ -133,9 +133,7 @@ class Audio:
 if __name__ == '__main__':
 
     access_key = "C2xFc9n2QGICQXRJuWvfCZUMZW+uru9hd18xtfD1PWCAXc5LbqfTdQ=="
-    # keyword_paths = ["/home/elgeuse/Documents/uni_stuff/5Individual_Project/clyderos2/src/clyde_audio/resource/Hello-Clyde_en_linux_v3_0_0.ppn"]
     keyword_paths = ["/workspaces/clyderos2/src/clyde_audio/resource/Hello-Clyde_en_linux_v3_0_0.ppn"]
 
-
-    audio = Audio(access_key=access_key, keyword_paths=keyword_paths)
+    audio = Audio_Detector(access_key=access_key, keyword_paths=keyword_paths)
     audio.wakeword()
