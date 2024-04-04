@@ -11,8 +11,13 @@ class JointAngleReader(Node):
     def __init__(self):
         super().__init__('joint_angle_reader')
         self.joint_state_publisher = self.create_publisher(JointState, 'joint_states', 10)
-        self.serial_port = serial.Serial('/dev/ttyS0', 115200, timeout=1)
-        self.timer = self.create_timer(0.2, self.query_and_publish_joint_angles)
+        try:
+            self.serial_port = serial.Serial('/dev/ttyS0', 115200, timeout=1)
+        except serial.SerialException as e:
+            self.get_logger().error(f"Failed to open serial port: {e}")
+            self.destroy_node()
+            return
+        self.timer = self.create_timer(0.05, self.query_and_publish_joint_angles)
         self.last_joint_angles = None
 
     def query_and_publish_joint_angles(self):
@@ -20,7 +25,7 @@ class JointAngleReader(Node):
         self.serial_port.write(b'j\n')
 
         # Wait briefly for the Bittle to respond
-        time.sleep(0.2)
+        #time.sleep(0.2)
 
         if self.serial_port.in_waiting:
             # Read and ignore the first line (joint indices)
@@ -55,12 +60,9 @@ class JointAngleReader(Node):
 
         rad_angles = [math.radians(angle) for angle in joint_angles]
 
-        # Debugging print
-        #print(f"Publishing Joint Angles: {rad_angles}")
-
         msg = JointState()
         msg.header.stamp = self.get_clock().now().to_msg()
-        msg.name = ['neck_joint', 'shlfs_joint', 'shrfs_joint', 'shrrs_joint', 'shlrs_joint', 'shlft_joint', 'shrft_joint', 'shrrt_joint', 'shlrt_joint']  # Adjust as necessary
+        msg.name = ['neck_joint', 'shrfs_joint', 'shrft_joint', 'shrrs_joint', 'shrrt_joint', 'shlfs_joint', 'shlft_joint', 'shlrs_joint', 'shlrt_joint']  # Adjust as necessary
         selected_angles = [rad_angles[0]] + rad_angles[-8:]
         msg.position = selected_angles
         self.get_logger().info(f"Publishing Joint Angles: {selected_angles}")
