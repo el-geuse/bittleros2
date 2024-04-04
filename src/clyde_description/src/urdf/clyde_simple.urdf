@@ -1717,7 +1717,7 @@
     <origin rpy="0 -1.341 0" xyz="0.007145 -0.0125 0.004125"/>
     <parent link="servo_rrs__1"/>
     <child link="c_thrr_1"/>
-    <axis xyz="0.0 -1.0 -0.0"/>
+    <axis xyz="0.0 1.0 0.0"/>
   </joint>
   <joint name="shrrt_joint" type="continuous">
     <origin rpy="0 1.206 0" xyz="0.0 0.007857 0.0"/>
@@ -1791,7 +1791,7 @@
     <origin rpy="0 -1.308 0" xyz="0.007145 0.0125 0.004125"/>
     <parent link="servo_lrs__1"/>
     <child link="c_thlr_1"/>
-    <axis xyz="-0.0 -1.0 0.0"/>
+    <axis xyz="0.0 1.0 0.0"/>
   </joint>
   <joint name="shlrt_joint" type="continuous">
     <origin rpy="0 1.206 0" xyz="0.0 -0.007857 0.0"/>
