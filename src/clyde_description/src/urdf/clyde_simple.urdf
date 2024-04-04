@@ -1672,7 +1672,7 @@
     <child link="servo_lrs__1"/>
   </joint>
   <joint name="shrfs_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="-0.007145 -0.0125 0.004125"/>
+    <origin rpy="0 -1.308 0" xyz="-0.007145 -0.0125 0.004125"/>
     <parent link="servo_rfs_1"/>
     <child link="c_thrf__1"/>
     <axis xyz="0.0 1.0 -0.0"/>
@@ -1683,7 +1683,7 @@
     <child link="shank_rf_1"/>
   </joint>
   <joint name="shrft_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.0 0.007857 0.0"/>
+    <origin rpy="0 1.206 0" xyz="0.0 0.007857 0.0"/>
     <parent link="c_thorf_1"/>
     <child link="servos_rf_1"/>
     <axis xyz="0.0 1.0 -0.0"/>
@@ -1714,13 +1714,13 @@
     <child link="shank_rr_1"/>
   </joint>
   <joint name="shrrs_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.007145 -0.0125 0.004125"/>
+    <origin rpy="0 -1.341 0" xyz="0.007145 -0.0125 0.004125"/>
     <parent link="servo_rrs__1"/>
     <child link="c_thrr_1"/>
     <axis xyz="0.0 -1.0 -0.0"/>
   </joint>
   <joint name="shrrt_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.0 0.007857 0.0"/>
+    <origin rpy="0 1.206 0" xyz="0.0 0.007857 0.0"/>
     <parent link="c_thorr_1"/>
     <child link="servos_rr_1"/>
     <axis xyz="0.0 1.0 -0.0"/>
@@ -1751,13 +1751,13 @@
     <child link="shank_lf_1"/>
   </joint>
   <joint name="shlfs_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="-0.007145 0.0125 0.004125"/>
+    <origin rpy="0 -1.274 0" xyz="-0.007145 0.0125 0.004125"/>
     <parent link="servo_lfs_1"/>
     <child link="c_thlf_1"/>
     <axis xyz="-0.0 1.0 0.0"/>
   </joint>
   <joint name="shlft_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.0 -0.007857 0.0"/>
+    <origin rpy="0 1.206 0" xyz="0.0 -0.007857 0.0"/>
     <parent link="c_tholf_1"/>
     <child link="servos_lf_1"/>
     <axis xyz="-0.0 1.0 0.0"/>
@@ -1788,13 +1788,13 @@
     <child link="shank_lr_1"/>
   </joint>
   <joint name="shlrs_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.007145 0.0125 0.004125"/>
+    <origin rpy="0 -1.308 0" xyz="0.007145 0.0125 0.004125"/>
     <parent link="servo_lrs__1"/>
     <child link="c_thlr_1"/>
     <axis xyz="-0.0 -1.0 0.0"/>
   </joint>
   <joint name="shlrt_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.0 -0.007857 0.0"/>
+    <origin rpy="0 1.206 0" xyz="0.0 -0.007857 0.0"/>
     <parent link="c_tholr__1"/>
     <child link="servos_lr_1"/>
     <axis xyz="0.0 1.0 -0.0"/>
