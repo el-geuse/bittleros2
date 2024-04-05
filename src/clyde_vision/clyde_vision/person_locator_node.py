@@ -4,14 +4,14 @@ from rclpy.node import Node
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 from clyde_vision.PersonLocator import LivePersonLocationDetector
-from sensor_msgs.msg import CompressedImage
+
 
 class PersonLocationNode(Node):
     def __init__(self):
         super().__init__('person_locator_node')
         self.subscriber = self.create_subscription(
             Image,
-            '/image_raw',
+            '/image_raw/uncompressed',
             self.image_callback,
             10,
             )
