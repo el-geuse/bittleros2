@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'person_locator = clyde_vision.vision_node:main'
+            'person_locator = clyde_vision.person_locator_node:main'
         ],
     },
 )
