@@ -2,9 +2,10 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
+from geometry_msgs.msg import PoseStamped
 from cv_bridge import CvBridge, CvBridgeError
 from clyde_vision.PersonLocator import LivePersonLocationDetector
-
+import cv2
 
 class PersonLocationNode(Node):
     def __init__(self):
@@ -18,6 +19,8 @@ class PersonLocationNode(Node):
         self.bridge = CvBridge()
         self.detector = LivePersonLocationDetector()
 
+        self.modified_video_publisher = self.create_publisher(Image, '/modified_video', 10)
+
         self.add_on_set_parameters_callback(self.on_shutdown_callback)
 
     def image_callback(self, msg):
@@ -29,7 +32,27 @@ class PersonLocationNode(Node):
 
         result = self.detector.process_frame(cv_image)
         if result:
-            self.get_logger().info(f'Detected person at X: {result["X"]}, Z: {result["Z"]}')
+            rect_width = 50  # Width of the rectangle
+            rect_height = 100  # Height of the rectangle
+
+            # Calculate the top-left corner of the rectangle
+            top_left = (int(result["X"] - rect_width / 2), int(result["Y"] - rect_height / 2))
+
+            # Calculate the bottom-right corner of the rectangle
+            bottom_right = (int(result["X"] + rect_width / 2), int(result["Y"] + rect_height / 2))
+
+            # Rectangle color (B, G, R) - Blue in this case
+            color = (255, 0, 0)
+
+            # Rectangle thickness
+            thickness = 2
+
+            # Draw the rectangle on the frame
+            cv_image = cv2.rectangle(cv_image, top_left, bottom_right, color, thickness)
+        bridge = CvBridge()
+        img_msg = bridge.cv2_to_imgmsg(cv_image, "rgb8")
+        self.modified_video_publisher.publish(img_msg)
+
 
     def on_shutdown_callback(self):
         # Call the close method of your detector here

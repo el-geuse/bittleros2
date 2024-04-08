@@ -27,11 +27,13 @@ class LivePersonLocationDetector:
             shoulder_width_pixels = abs(left_shoulder.x * w - right_shoulder.x * w)
 
             person_center_x = (left_shoulder.x + right_shoulder.x) * w / 2
+            person_center_y = (left_shoulder.y + right_shoulder.y) * h / 2
 
-            real_z_distance = (0.4 * self.focal_length) / shoulder_width_pixels
-            X_real = (person_center_x - image_center[0]) * real_z_distance / self.focal_length
+            Z_real = (0.4 * self.focal_length) / shoulder_width_pixels
+            X_real = (person_center_x - image_center[0]) * Z_real / self.focal_length
+            Y_real = (person_center_y - image_center[1]) * Z_real / self.focal_length
 
-            return {"X": X_real, "Z": real_z_distance}
+            return {"X": X_real, "Y": Y_real, "Z": Z_real}
 
         return None
 
