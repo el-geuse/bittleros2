@@ -23,6 +23,7 @@ class Driver(Node):
         super().__init__('cmd_vel_listener')
         self.subscription = self.create_subscription(Twist, "/cmd_vel", self.callback, 10)
         self.subscription  # prevent unused variable warning
+        self.location_subscription = self.create_subscription(PoseStamped, "/person_location", self.location_callback, 10)
 
         self.dir = 0
 
@@ -55,6 +56,16 @@ class Driver(Node):
         if self.dir != dir:
             self.wrapper([dir_dict[dir], 0])
             self.dir = dir
+    def location_callback(self, msg):
+        # Example logic to move towards the person:
+        # This is a simple approach; you'd likely want more sophisticated control logic.
+        if msg.pose.position.x > 1.0:  # Assuming positive X is right
+            self.send_teleop_command(2)  # Move right
+            self.get_logger().info("Moving right towards the detected person.")
+        elif msg.pose.position.x < -1.0:
+            self.send_teleop_command(3)  # Move left
+            self.get_logger().info("Moving left towards the detected person.")
+        # Add more conditions as necessary for other directions
 
     def wrapper(self, task):  # Structure is [token, var=[], time]
         print(task)
