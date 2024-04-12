@@ -84,5 +84,7 @@
         ".vscode-insiders",
         ".devcontainer/devcontainer.json"
     ],
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "python.analysis.typeCheckingMode": "off",
+    "python.analysis.autoImportCompletions": true
 }

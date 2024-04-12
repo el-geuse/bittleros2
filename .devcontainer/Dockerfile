@@ -3,12 +3,20 @@ FROM althack/ros2:humble-cuda-gazebo-nvidia
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
-   && apt-get -y install --no-install-recommends python3-serial curl \
-   ros-humble-v4l2-camera ros-humble-image-transport-plugins \
+   && apt-get -y install --no-install-recommends python3-serial \
+   ros-humble-v4l2-camera ros-humble-image-transport-plugins cuda-command-line-tools-11-8 \
    && curl -s https://install.husarnet.com/install.sh | bash \
    && apt-get autoremove -y \
    && apt-get clean -y \
    && rm -rf /var/lib/apt/lists/*
+
+# CUDA bits and bobs
+ENV PATH /home/ros/.local/bin:${PATH}   
+
+# cuDNN installation
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb \
+   && dpkg -i cuda-keyring_1.1-1_all.deb\
+   && apt-get update && apt-get -y install cudnn-cuda-11
 
 # Necessary Python packages
 COPY requirements.txt .
