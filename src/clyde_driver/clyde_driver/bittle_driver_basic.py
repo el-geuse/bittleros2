@@ -61,11 +61,14 @@ class Driver(Node):
         # Example logic to move towards the person:
         # This is a simple approach; you'd likely want more sophisticated control logic.
         if msg.pose.position.x > 1.0:  # Assuming positive X is right
-            self.send_teleop_command(2)  # Move right
+            self.send_teleop_command(4)  # Move right
             self.get_logger().info("Moving right towards the detected person.")
         elif msg.pose.position.x < -1.0:
-            self.send_teleop_command(3)  # Move left
+            self.send_teleop_command(5)  # Move left
             self.get_logger().info("Moving left towards the detected person.")
+        # elif msg.pose.position.y < 3:
+        #     self.send_teleop_command(0)  # Move left
+        #     self.get_logger().info("Moving left towards the detected person.")
         # Add more conditions as necessary for other directions
 
     def wrapper(self, task):  # Structure is [token, var=[], time]
@@ -106,6 +109,28 @@ class Driver(Node):
             instrStr = token
         print("!!!!!!! "+instrStr)
         self.ser.write(instrStr.encode())
+    
+    def send_teleop_command(self, direction):
+        """
+        Sends a teleoperation command to the robot by serial communication,
+        utilizing predefined direction commands.
+        
+        Parameters:
+            direction (int): The key corresponding to the desired direction in dir_dict.
+        """
+        # Check if the provided direction key exists in the dictionary
+        if direction in dir_dict:
+            # Retrieve the command string from the dictionary
+            command = dir_dict[direction]
+            # Use the wrapper method to send the command
+            # Assuming the second parameter of wrapper can be a delay or additional parameters,
+            # here we pass 0, possibly indicating no delay or a placeholder value.
+            self.wrapper([command, 0])
+            self.get_logger().info(f"Sent teleop command for direction {direction}: {command}")
+        else:
+            # Log a warning if an invalid direction is provided
+            self.get_logger().warn(f"Invalid direction provided: {direction}. No command sent.")
+
 
 def main(args=None):
     rclpy.init()
