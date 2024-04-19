@@ -52,7 +52,7 @@ class PersonLocationNode(Node):
             # cv_image = cv2.rectangle(cv_image, top_left, bottom_right, color, thickness)
 
         img_msg = self.bridge.cv2_to_imgmsg(cv_image, "rgb8")
-        self.modified_video_publisher.publish(img_msg)
+        #self.modified_video_publisher.publish(img_msg)
 
     def on_shutdown_callback(self):
         # Call the close method of your detector here

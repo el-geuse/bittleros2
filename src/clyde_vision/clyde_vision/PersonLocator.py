@@ -6,7 +6,7 @@ import mediapipe as mp
 
 
 class LivePersonLocationDetector:
-    def __init__(self, focal_length=1000):
+    def __init__(self, focal_length=900):
         self.focal_length = focal_length
         self.mp_pose = mp.solutions.pose
         self.pose = self.mp_pose.Pose()
