@@ -2,3 +2,4 @@ SpeechRecognition==3.10.0
 pvporcupine==3.0.2
 pvrecorder==1.2.2
 sounddevice
+mediapipe

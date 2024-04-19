@@ -4,6 +4,7 @@ FROM althack/ros2:humble-cuda-gazebo-nvidia
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
    && apt-get -y install --no-install-recommends python3-serial curl \
+   ros-humble-v4l2-camera ros-humble-image-transport-plugins \
    && curl -s https://install.husarnet.com/install.sh | bash \
    && apt-get autoremove -y \
    && apt-get clean -y \

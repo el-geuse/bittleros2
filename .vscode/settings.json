@@ -51,6 +51,8 @@
         "dtype",
         "gzclient",
         "gzserver",
+        "imgmsg",
+        "imshow",
         "ints",
         "kbalance",
         "noqa",
