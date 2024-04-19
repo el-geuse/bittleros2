@@ -1,11 +1,10 @@
 # clyderos2
-## EM501 Project
-### Group C
+## EM501 Project -- Group C
 
 Master's Thesis group project working on creating a quadruped capable of use in elderly care, specifically fall detection and autonomous supervision. Built using ROS 2, with a Raspberry Pi Zero 2W attached to the quadruped frame, issuing data to the master pc.
 
 ## Folder Breakdown
-Packages broken down in a pretty standard way:
+Packages broken down in a standard way:
 1. **`.devcontainer`**: Configuration for the development container environment.
 2. **`clyde_audio`** : Source code for wakeword and command detection.
 3. **`clyde_bringup`** : Contains launch files used in all the other packages.
