@@ -4,6 +4,7 @@
 # Source ROS 2
 # source /opt/ros/${ROS_DISTRO}/setup.bash
 # (Already sourced in base docker image)
+echo "export ROS_DOMAIN_ID=42" >> /home/ros/.bashrc
 
 # Required Husarnet ROS 2 variables
 echo "export FASTRTPS_DEFAULT_PROFILES_FILE=/workspaces/clyderos2/src/clyde_teleop/config/fastdds-ds-client.xml" >> /home/ros/.bashrc

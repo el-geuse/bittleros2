@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-                'basic_driver = clyde_driver.bittle_driver_basic:main'
+                'basic_driver = clyde_driver.bittle_driver_basic:main',
+                'joint_reader = clyde_driver.joint_state_publisher:main'
         ],
     },
 )

@@ -15,7 +15,7 @@ def generate_launch_description():
   package_name = 'clyde_description'
   robot_name_in_model = 'clyde'
   urdf_model_path = 'src/urdf/clyde_simple.urdf'
-  world_file_path = 'src/worlds/world-env0'
+  world_file_path = 'src/worlds/test-realm1'
 
   # Pose where we want to spawn the robot
   spawn_x_val = '0.0'
