@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'audio_processor = clyde_audio.audio_processor:main'
         ],
     },
 )
