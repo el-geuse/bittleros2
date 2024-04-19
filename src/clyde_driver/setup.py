@@ -21,7 +21,8 @@ setup(
     entry_points={
         'console_scripts': [
                 'basic_driver = clyde_driver.bittle_driver_basic:main',
-                'joint_reader = clyde_driver.joint_state_publisher:main'
+                'joint_reader = clyde_driver.joint_state_publisher:main',
+                'audio_publisher = clyde_driver.audio_publisher:main'
         ],
     },
 )
