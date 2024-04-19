@@ -21,7 +21,7 @@ dir_dict = {1: 'kwkF',           # walk forward
 class Driver(Node):
 
     def __init__(self, port='/dev/ttyS0'):
-        super().__init__('cmd_vel_listener')
+        super().__init__('bittle_driver')
         self.subscription = self.create_subscription(Twist, "/cmd_vel", self.callback, 10)
         self.subscription  # prevent unused variable warning
         self.location_subscription = self.create_subscription(PoseStamped, "/person_location", self.location_callback, 10)
@@ -57,19 +57,22 @@ class Driver(Node):
         if self.dir != dir:
             self.wrapper([dir_dict[dir], 0])
             self.dir = dir
+
     def location_callback(self, msg):
         # Example logic to move towards the person:
         # This is a simple approach; you'd likely want more sophisticated control logic.
-        if msg.pose.position.x > 1.0:  # Assuming positive X is right
-            self.send_teleop_command(4)  # Move right
+        if msg.pose.position.x > 0.01:  # Assuming positive X is right
+            dir = 2
             self.get_logger().info("Moving right towards the detected person.")
-        elif msg.pose.position.x < -1.0:
-            self.send_teleop_command(5)  # Move left
+        elif msg.pose.position.x < -0.01:
+            dir = 3
             self.get_logger().info("Moving left towards the detected person.")
-        # elif msg.pose.position.y < 3:
-        #     self.send_teleop_command(0)  # Move left
-        #     self.get_logger().info("Moving left towards the detected person.")
-        # Add more conditions as necessary for other directions
+        else:
+            dir = 0
+
+        if self.dir != dir:
+            self.wrapper([dir_dict[dir], 0])
+            self.dir = dir
 
     def wrapper(self, task):  # Structure is [token, var=[], time]
         print(task)
